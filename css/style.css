@@ -14,10 +14,23 @@ span.mdl-layout-title{
 	font-size: 25px;
 }
 
+.mdl-layout__drawer>.mdl-layout-title{
+	line-height: 32px;
+	padding-left: 1em;
+	font-weight: 600;
+	padding-top: 0.6em;
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link{
+	padding: 1em 0em 1em 1.8em;
+	font-size: 16px;
+}
+
 a.title{
 	color: inherit;
 	font-weight: inherit;
 	text-decoration: none;
+	padding-left: 1em;
 }
 
 a.mdl-navigation__link{
@@ -31,8 +44,12 @@ a.mdl-navigation__link{
 	position: fixed;
 }
 
-form#topform{
-	margin-top: 1.5em;
+i.material-icons{
+	padding-top: 0.4em;
+}
+
+form{
+	margin: 1em !important;
 }
 
 .mdl-textfield__label{
@@ -51,6 +68,12 @@ form#topform{
 
 .mdl-textfield--floating-label.is-focused .mdl-textfield__label, .mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
 	color: rgba(218, 75, 57, 0.25);
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button{
+	font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+	font-size: 14px !important;
+	font-weight: 300;
 }
 
 .maincontent{
@@ -73,11 +96,16 @@ hr#titleline{
 	border-radius: 20px;
 	background-color: #d7d7d7;
 	padding: 2em;
+	margin-bottom: 2em;
 }
 
 h2.entrytitle{
 	font-size: 26px;
 	margin: 0;
+}
+
+h2.submit_header{
+	font-size: 26px;
 }
 
 hr.entryline{
@@ -96,4 +124,13 @@ p.entryinfo{
 	margin-bottom: 0;
 	text-align: right;
 	color: rgba(0, 0, 0, .5);
+}
+
+.mdl-textfield.mdl-js-textfield.is-upgraded{
+	width: 100%;
+}
+
+input.mdl-button.mdl-js-button{
+	font-size: 20px;
+	font-weight: 600;
 }

@@ -1,10 +1,31 @@
 <html>
 	<head>
+		<meta charset="UTF-16">
 		<script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
 		<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="css/style.css">
-		
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="js/browse.js"></script>
+		<script>
+		function submitEntry(){
+		var jsonData = {
+			"title": $("#work_title").val(),
+			"author_email": $("#email").val(),
+			"editor": $("#content").val(),
+			"author_name": $("#name").val(),
+			"language": $("#language").val(),
+			"is_translation": "0",
+			"parent_id": "0"
+		}
+		$.post("http://translationnetwork.org/api/index.php/article", jsonData, function(data){
+			console.log(data.status);
+			alert("Thank you for submitting your entry to TranslationNetwork.org");
+		});
+		}
+		</script>
 	</head>
 	<body>
 		<div class="demo-layout-waterfall mdl-layout mdl-js-layout">
@@ -37,28 +58,74 @@
 		      </nav>
 		    </div>
 		  </header>
-		  <main class="mdl-layout__content">
+		  <div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">The Translation Network</span>
+			<nav class="mdl-navigation">
+		      <nav class="mdl-navigation">
+		        <a class="mdl-navigation__link" href="about.html">About</a>
+		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
+		        <a class="mdl-navigation__link" href="contribute.html">Contribute</a>
+			</nav>
+		  </div>
+				  <main class="mdl-layout__content">
 		  	<div class="search">
 		  		<form id="topform" action="#">
 		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    					<input class="mdl-textfield__input" type="text" id="sample3">
-    					<label class="mdl-textfield__label" for="sample3">Search Language...</label>
+						<div class="ui-widget">
+    					<input class="mdl-textfield__input" type="text" id="lang">
+    					<label class="mdl-textfield__label" for="lang">Search Language...</label>
+						</div>
 					</div>
 				</form>
 		  		<form action="#">
 		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    					<input class="mdl-textfield__input" type="text" id="sample3">
-    					<label class="mdl-textfield__label" for="sample3">Search Author...</label>
+						<div class="ui-widget">
+							<input class="mdl-textfield__input" type="text" id="author">
+							<label class="mdl-textfield__label" for="author">Search Author...</label>
+						</div>
 					</div>
 				</form>
 		  		<form action="#">
 		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    					<input class="mdl-textfield__input" type="text" id="sample3">
-    					<label class="mdl-textfield__label" for="sample3">Search Title...</label>
+    					<input class="mdl-textfield__input" type="text" id="title">
+    					<label class="mdl-textfield__label" for="title">Search Title...</label>
 					</div>
 				</form>
 		  	</div>
 		  	<div class="maincontent">
+				<h1 id='contenttitle'>Submit New Article</h1>
+				<hr id='titleline'>
+				<div id='entries'>
+				<form onsubmit="submitEntry()">
+					<h2 class="submit_header">Submitter's information</h2>
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="text" id="name">
+						<label class="mdl-textfield__label" for="name">Name...</label>
+					</div>
+					<br>
+					<div class="mdl-textfield mdl-js-textfield">
+    					<input class="mdl-textfield__input" type="text" id="language">
+    					<label class="mdl-textfield__label" for="language">Language...</label>
+					</div>
+					<br>
+					<div class="mdl-textfield mdl-js-textfield">
+    					<input class="mdl-textfield__input" type="text" id="email">
+    					<label class="mdl-textfield__label" for="email">Email...</label>
+					</div>
+					<br>
+					<h2 class="submit_header">Submission</h2>
+					<div class="mdl-textfield mdl-js-textfield">
+    					<input class="mdl-textfield__input" type="text" id="work_title">
+    					<label class="mdl-textfield__label" for="work_title">Title...</label>
+					</div>
+					<br>
+					<div class="mdl-textfield mdl-js-textfield">
+						<textarea class="mdl-textfield__input" type="text" rows= "10" id="sample5" ></textarea>
+						<label class="mdl-textfield__label" for="sample5">Content...</label>
+					</div>
+					<input id = "submit" class="mdl-button mdl-js-button" type="submit" value="Submit">
+				</form>
+				</div>
 		  	</div>
 		  </main>
 		</div>

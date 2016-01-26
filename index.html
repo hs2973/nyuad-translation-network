@@ -1,10 +1,44 @@
 <html>
 	<head>
+		<meta charset="UTF-16">
 		<script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
 		<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="js/browse.js"></script>
+	<script>
+		var baseurl = "http://api.translationnetwork.org";
+				
+		$.getJSON( baseurl + "/articles?featured=1", function( data ) {
+			document.getElementById("contenttitle").innerHTML = "Featured Articles";
+			var appending = "";
+			for(var i = 0; i < data.length; i++){
+				if(data[i].is_translation == "0"){
+					appending += "<div class='entry'><h2 class='entrytitle'>" + data[i].title + "</h2><p class='entryauthor'>Original work by " + data[i].author_name + "</p><hr class='entryline'><p>" + data[i].text +"</p></div>";
+				}
+				else{
+					var orginal_author = "";
+					var original_lang = "";
+					$.ajax({
+						url: baseurl + "/article/" + data[i].parent_id,
+						async:false,
+						dataType: 'json',
+						success: function(data){
+							original_author = data.author_name;
+							original_lang = data.language;
+						}
+					});
+					appending += "<div class='entry'><h2 class='entrytitle'>" + data[i].title + "</h2><p class='entryauthor'>Translated into "+data[i].language+" by " + data[i].author_name + "</p><hr class='entryline'>" + respText +"<p class='entryinfo'>From " + original_lang + " by " + original_author + "</div>";
+				}
+			}
+			document.getElementById("entries").innerHTML = appending;
+		});
 		
+		
+	</script>
 	</head>
 	<body>
 		<div class="demo-layout-waterfall mdl-layout mdl-js-layout">
@@ -37,37 +71,44 @@
 		      </nav>
 		    </div>
 		  </header>
+		  <div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">The Translation Network</span>
+			<nav class="mdl-navigation">
+		      <nav class="mdl-navigation">
+		        <a class="mdl-navigation__link" href="about.html">About</a>
+		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
+		        <a class="mdl-navigation__link" href="contribute.html">Contribute</a>
+			</nav>
+		  </div>
 		  <main class="mdl-layout__content">
 		  	<div class="search">
 		  		<form id="topform" action="#">
 		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    					<input class="mdl-textfield__input" type="text" id="sample3">
-    					<label class="mdl-textfield__label" for="sample3">Search Language...</label>
+						<div class="ui-widget">
+    					<input class="mdl-textfield__input" type="text" id="lang">
+    					<label class="mdl-textfield__label" for="lang">Search Language...</label>
+						</div>
 					</div>
 				</form>
 		  		<form action="#">
 		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    					<input class="mdl-textfield__input" type="text" id="sample3">
-    					<label class="mdl-textfield__label" for="sample3">Search Author...</label>
+						<div class="ui-widget">
+							<input class="mdl-textfield__input" type="text" id="author">
+							<label class="mdl-textfield__label" for="author">Search Author...</label>
+						</div>
 					</div>
 				</form>
 		  		<form action="#">
 		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    					<input class="mdl-textfield__input" type="text" id="sample3">
-    					<label class="mdl-textfield__label" for="sample3">Search Title...</label>
+    					<input class="mdl-textfield__input" type="text" id="title">
+    					<label class="mdl-textfield__label" for="title">Search Title...</label>
 					</div>
 				</form>
 		  	</div>
 		  	<div class="maincontent">
-		  		<h1 id="contenttitle">Staff Picks</h1>
-		  		<hr id="titleline">
-		  		<div class="entry">
-		  			<h2 class="entrytitle">content title</h2>
-		  			<p class="entryauthor">Author Name</p>
-		  			<hr class="entryline">
-		  			<p>content</p>
-		  			<p class="entryinfo">Entry Info</p>
-		  		</div>
+				<h1 id='contenttitle'></h1>
+				<hr id='titleline'>
+				<div id='entries'></div>
 		  	</div>
 		  </main>
 		</div>
