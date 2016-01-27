@@ -9,36 +9,6 @@
 		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="js/browse.js"></script>
-	<script>
-		var baseurl = "http://api.translationnetwork.org";
-				
-		$.getJSON( baseurl + "/articles?featured=1", function( data ) {
-			document.getElementById("contenttitle").innerHTML = "Featured Articles";
-			var appending = "";
-			for(var i = 0; i < data.length; i++){
-				if(data[i].is_translation == "0"){
-					appending += "<div class='entry'><h2 class='entrytitle'>" + data[i].title + "</h2><p class='entryauthor'>Original work by " + data[i].author_name + "</p><hr class='entryline'><p>" + data[i].text +"</p></div>";
-				}
-				else{
-					var orginal_author = "";
-					var original_lang = "";
-					$.ajax({
-						url: baseurl + "/article/" + data[i].parent_id,
-						async:false,
-						dataType: 'json',
-						success: function(data){
-							original_author = data.author_name;
-							original_lang = data.language;
-						}
-					});
-					appending += "<div class='entry'><h2 class='entrytitle'>" + data[i].title + "</h2><p class='entryauthor'>Translated into "+data[i].language+" by " + data[i].author_name + "</p><hr class='entryline'>" + respText +"<p class='entryinfo'>From " + original_lang + " by " + original_author + "</div>";
-				}
-			}
-			document.getElementById("entries").innerHTML = appending;
-		});
-		
-		
-	</script>
 	</head>
 	<body>
 		<div class="demo-layout-waterfall mdl-layout mdl-js-layout">
@@ -46,7 +16,7 @@
 		    <!-- Top row, always visible -->
 		    <div class="mdl-layout__header-row">
 		      <!-- Title -->
-		      <span class="mdl-layout-title"><a class="title" href="index.html">The Translation Network</a></span>
+		      <span class="mdl-layout-title"><a class="title" href="index.html">Translation Network</a></span>
 		      <div class="mdl-layout-spacer"></div>
 		      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
 		                  mdl-textfield--floating-label mdl-textfield--align-right">
@@ -67,7 +37,8 @@
 		      <nav class="mdl-navigation">
 		        <a class="mdl-navigation__link" href="about.html">About</a>
 		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
-		        <a class="mdl-navigation__link" href="contribute.html">Contribute</a>
+		        <a class="mdl-navigation__link" href="contribute_new.html">Contribute New</a>
+		        <a class="mdl-navigation__link" href="contribute_translation.html">Contribute Translation</a>
 		      </nav>
 		    </div>
 		  </header>
@@ -77,7 +48,8 @@
 		      <nav class="mdl-navigation">
 		        <a class="mdl-navigation__link" href="about.html">About</a>
 		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
-		        <a class="mdl-navigation__link" href="contribute.html">Contribute</a>
+		        <a class="mdl-navigation__link" href="contribute_new.html">Contribute New</a>
+		        <a class="mdl-navigation__link" href="contribute_translation.html">Contribute Translation</a>
 			</nav>
 		  </div>
 		  <main class="mdl-layout__content">
@@ -106,9 +78,13 @@
 				</form>
 		  	</div>
 		  	<div class="maincontent">
-				<h1 id='contenttitle'></h1>
+				<h1 id='contenttitle'>About Translation Network</h1>
 				<hr id='titleline'>
-				<div id='entries'></div>
+				<div id='entries'>
+				<p>Translation Network is space for members of the NYUAD community to experiment with translation - to share original writing <i>in any language</i> and to translate one another's writing <i>into any language</i>. This platform encourages writing across linguistic, geographic, and disciplinary boundaries, in appreciating of the many languages spoken and studied at NYU Abu Dhabi and at NYU's global locations. Through the medium of translation, we hope that students, faculty, and staff will gain a portal to share their experience with one another, no matter where they might find themselves around the world.</p>
+				<br>
+				<p>A team of curators is responsible for reviewing all contributions submitted to the network before posting them to the webpage. If you are interested in participating as a curator, let us know at <a href="mailto:someone@example.com" target="_top">nyuad.translationnetwork@nyu.edu</a>.
+				</div>
 		  	</div>
 		  </main>
 		</div>

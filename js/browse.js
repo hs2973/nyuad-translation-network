@@ -1,6 +1,5 @@
 var baseurl = "http://api.translationnetwork.org";
-var availabeTags;
-		
+var availabeTags;	
 		$(function() {
 			$.getJSON(baseurl + "/languages", function(data){
 				availableTags = data;
