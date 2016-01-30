@@ -11,13 +11,34 @@
 		<script src="js/browse.js"></script>
 	<script>
 		var baseurl = "http://api.translationnetwork.org";
-				
+	
 		$.getJSON( baseurl + "/articles?featured=1", function( data ) {
 			document.getElementById("contenttitle").innerHTML = "Featured Articles";
 			var appending = "";
 			for(var i = 0; i < data.length; i++){
 				if(data[i].is_translation == "0"){
 					appending += "<div class='entry'><h2 class='entrytitle'>" + data[i].title + "</h2><p class='entryauthor'>Original work by " + data[i].author_name + "</p><hr class='entryline'><p>" + data[i].text +"</p></div>";
+					var trans = [];
+					$.ajax({
+						url: baseurl + "/article/" + data[i].id,
+						async: false,
+						dataType: 'json',
+						success: function(data){
+							trans = data.translations;
+						}
+					})
+					for(var j = 0; j < trans.length; j++){
+						$.ajax({
+							url: baseurl + "/article/" + trans[j],
+							async: false,
+							dataType: 'json',
+							success: function(data){
+								appending += "<button class='trans_link' id='" + data.id + "'>Translation in " + data.language + " by " + data.author_name + "</button>";
+								appending += "<div class='sub_entry' style='display: none;' id = 'show_" + data.id + "'><h2 class='entrytitle'>" + data.title + "</h2><p class='entryauthor'>Translated into "+data.language+" by " + data.author_name + "</p><hr class='entryline'>" + data.text + "</div>";
+							}
+						})
+					}
+					
 				}
 				else{
 					var orginal_author = "";
@@ -31,11 +52,32 @@
 							original_lang = data.language;
 						}
 					});
-					appending += "<div class='entry'><h2 class='entrytitle'>" + data[i].title + "</h2><p class='entryauthor'>Translated into "+data[i].language+" by " + data[i].author_name + "</p><hr class='entryline'>" + respText +"<p class='entryinfo'>From " + original_lang + " by " + original_author + "</div>";
+					appending += "<div class='entry'><h2 class='entrytitle'>" + data[i].title + "</h2><p class='entryauthor'>Translated into "+data[i].language+" by " + data[i].author_name + "</p><hr class='entryline'>" + data[i].text +"<p class='entryinfo'>From " + original_lang + " by " + original_author + "</div>";
 				}
 			}
+			
+			
+			
 			document.getElementById("entries").innerHTML = appending;
+					window.buttons = document.getElementsByTagName("button");
+		console.log(buttons);
+		
+		for(var j = 0; j < buttons.length; j++){
+			buttons[j].onclick = function(e){
+				var bid = this.id;
+				var bhash = "#" + bid;
+				var showid = "#show_" + bid;
+				console.log(showid);
+				if($(showid).css('display') == 'none'){
+					$(bhash).css('display', 'none');
+					$(showid).css('display', 'block');
+				}
+			};
+		}
 		});
+		
+		
+		
 		
 		
 	</script>

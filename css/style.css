@@ -99,6 +99,14 @@ hr#titleline{
 	margin-bottom: 2em;
 }
 
+.sub_entry{
+	border-radius: 20px;
+	background-color: #d7d7d7;
+	padding: 2em;
+	margin-bottom: 2em;
+}
+
+
 h2.entrytitle{
 	font-size: 26px;
 	margin: 0;
