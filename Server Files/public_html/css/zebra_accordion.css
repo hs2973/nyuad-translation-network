@@ -1,0 +1,7 @@
+.Zebra_Accordion dd { display: none }
+.Zebra_Accordion dt { cursor: pointer }
+
+dl.Zebra_Accordion dt { background: #777; padding: 5px 15px; color: #FFF; margin-top: 1px;}
+dl.Zebra_Accordion dd { background: #EFEFEF; padding: 15px; margin: 1px 0 }
+
+dl.Zebra_Accordion dt.Zebra_Accordion_Expanded { background: #C40000 }

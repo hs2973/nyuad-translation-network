@@ -1,0 +1,99 @@
+<html>
+	<head>
+		<meta charset="UTF-16">
+		<script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
+		<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="js/browse.js"></script>
+		<script src="js/dropdown.js"></script>
+	</head>
+	<body>
+		<div class="demo-layout-waterfall mdl-layout mdl-js-layout">
+		  <header class="mdl-layout__header mdl-layout__header--waterfall">
+		    <!-- Top row, always visible -->
+		    <div class="mdl-layout__header-row">
+		      <!-- Title -->
+		      <span class="mdl-layout-title"><a class="title" href="index.html">Translation Network</a></span>
+		      <div class="mdl-layout-spacer"></div>
+		      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+		                  mdl-textfield--floating-label mdl-textfield--align-right">
+		        <label class="mdl-button mdl-js-button mdl-button--icon"
+		               for="waterfall-exp">
+		          <i class="material-icons">search</i>
+		        </label>
+		        <div class="mdl-textfield__expandable-holder">
+		          <input class="mdl-textfield__input" type="text" name="sample"
+		                 id="waterfall-exp">
+		        </div>
+		      </div>
+		    </div>
+		    <!-- Bottom row, not visible on scroll -->
+		    <div class="mdl-layout__header-row">
+		      <div class="mdl-layout-spacer"></div>
+		      <!-- Navigation -->
+		      <nav class="mdl-navigation">
+		        <a class="mdl-navigation__link" href="about.html">About</a>
+		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
+		        <div class="dropdown">
+		          <a onclick="event.preventDefault(); toggleDropdown()" class="mdl-navigation__link dropbtn" href="#">Contribute</a>
+				</div>
+		      </nav>
+		    </div>
+		  </header>
+		   <div id="myDropdown" class="dropdown-content">
+		    <a href="contribute_new.html">Original Text</a>
+		    <a href="contribute_translation.html">Translation</a>
+		  </div>
+		  <div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">The Translation Network</span>
+			<nav class="mdl-navigation">
+		      <nav class="mdl-navigation">
+		        <a class="mdl-navigation__link" href="about.html">About</a>
+		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
+		        <a class="mdl-navigation__link" href="contribute_new.html">Contribute New</a>
+		        <a class="mdl-navigation__link" href="contribute_translation.html">Contribute Translation</a>
+			</nav>
+		  </div>
+		  <main class="mdl-layout__content">
+		  	<div class="search">
+		  		<form id="topform" action="#">
+		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<div class="ui-widget">
+    					<input class="mdl-textfield__input" type="text" id="lang">
+    					<label class="mdl-textfield__label" for="lang">Search Language...</label>
+						</div>
+					</div>
+				</form>
+		  		<form action="#">
+		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<div class="ui-widget">
+							<input class="mdl-textfield__input" type="text" id="author">
+							<label class="mdl-textfield__label" for="author">Search Author...</label>
+						</div>
+					</div>
+				</form>
+		  		<form action="#">
+		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    					<input class="mdl-textfield__input" type="text" id="title">
+    					<label class="mdl-textfield__label" for="title">Search Title...</label>
+					</div>
+				</form>
+		  	</div>
+		  	<div class="maincontent">
+				<h1 id='contenttitle'>About Translation Network</h1>
+				<hr id='titleline'>
+				<div id='entries'>
+				<p>Translation Network is space for members of the NYUAD community to experiment with translation - to share original writing <i>in any language</i> and to translate one another's writing <i>into any language</i>. This platform encourages writing across linguistic, geographic, and disciplinary boundaries, in appreciating of the many languages spoken and studied at NYU Abu Dhabi and at NYU's global locations. Through the medium of translation, we hope that students, faculty, and staff will gain a portal to share their experience with one another, no matter where they might find themselves around the world.</p>
+				<br>
+				<p>A team of curators is responsible for reviewing all contributions submitted to the network before posting them to the webpage. If you are interested in participating as a curator, let us know at <a href="mailto:someone@example.com" target="_top">nyuad.translationnetwork@nyu.edu</a>.
+				</div>
+		  	</div>
+		  </main>
+		</div>
+
+	</body>
+</html>

@@ -1,0 +1,167 @@
+header.mdl-layout__header.mdl-layout__header--waterfall{
+	background-color: black;
+}
+
+.demo-layout-waterfall .mdl-layout__header-row .mdl-navigation__link:last-of-type  {
+  padding-right: 0;
+}
+
+.mdl-layout__header-row{
+	padding: 0 40px 0 40px;
+}
+
+span.mdl-layout-title{
+	font-size: 25px;
+}
+
+.mdl-layout__drawer>.mdl-layout-title{
+	line-height: 32px;
+	padding-left: 1em;
+	font-weight: 600;
+	padding-top: 0.6em;
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link{
+	padding: 1em 0em 1em 1.8em;
+	font-size: 16px;
+}
+
+a.title{
+	color: inherit;
+	font-weight: inherit;
+	text-decoration: none;
+	padding-left: 1em;
+}
+
+a.mdl-navigation__link{
+	font-size: 14px;
+}
+
+.search{
+	width: 25%;
+	height: 100%;
+	background-color: #d7d7d7;
+	position: fixed;
+}
+
+i.material-icons{
+	padding-top: 0.4em;
+}
+
+form{
+	margin: 1em !important;
+}
+
+.mdl-textfield__label{
+	font-size: 14px;
+}
+
+.mdl-textfield__label:after{
+	background-color: #da4b39;
+}
+
+.mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label.is-upgraded{
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.mdl-textfield--floating-label.is-focused .mdl-textfield__label, .mdl-textfield--floating-label.is-dirty .mdl-textfield__label{
+	color: rgba(218, 75, 57, 0.25);
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button{
+	font-family: "Roboto","Helvetica","Arial",sans-serif !important;
+	font-size: 14px !important;
+	font-weight: 300;
+}
+
+.maincontent{
+	margin-left: 25%;
+	padding: 0 2em;
+}
+
+h1#contenttitle{
+	font-size: 26px;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+hr#titleline{
+	margin-top: .25em;
+	margin-bottom: 2em;
+}
+
+.entry{
+	border-radius: 20px;
+	background-color: #d7d7d7;
+	padding: 2em;
+	margin-bottom: 2em;
+}
+
+h2.entrytitle{
+	font-size: 26px;
+	margin: 0;
+}
+
+h2.submit_header{
+	font-size: 26px;
+}
+
+hr.entryline{
+	margin-top: .25em;
+	margin-bottom: 2em;
+	border-top: 4px solid #da4b39;
+}
+
+p.entryauthor{
+	margin-bottom: 0;
+	text-align: right;
+	color: rgba(0, 0, 0, .5);
+}
+
+p.entryinfo{
+	margin-bottom: 0;
+	text-align: right;
+	color: rgba(0, 0, 0, .5);
+}
+
+.mdl-textfield.mdl-js-textfield.is-upgraded{
+	width: 100%;
+}
+
+input.mdl-button.mdl-js-button{
+	font-size: 20px;
+	font-weight: 600;
+}
+
+/* Dropdowns */
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+	z-index: 1000;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}

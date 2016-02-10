@@ -1,0 +1,184 @@
+<html>
+	<head>
+		<meta charset="UTF-16">
+		<script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
+		<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script src="js/browse.js"></script>
+		<script src="js/dropdown.js"></script>
+		<script>
+		function submitEntry(event){
+			event.preventDefault();
+
+			if ($("#original_article").val() == 0) {
+				alert("Please select an original article.");
+				$("#original_article").focus();
+				return false;
+			}
+
+			var jsonData = {
+				"title": $("#trans_title").val(),
+				"author_email": $("#email").val(),
+				"editor": $("#content").val(),
+				"author_name": $("#name").val(),
+				"language": $("#language").val(),
+				"is_translation": "0",
+				"parent_id": $("#original_article").val()
+			}
+			$.post("http://translationnetwork.org/api/index.php/article", jsonData, function(data){
+				console.log(data.status);
+
+				if(data.status == "success"){
+					alert("Thank you for submitting your entry to TranslationNetwork.org");
+
+					location.reload();
+
+				}else{
+					alert(data.message);
+					alert("Please try correcting the given errors and try again.");
+				}
+			});
+		}
+		</script>
+	</head>
+	<body>
+		<div class="demo-layout-waterfall mdl-layout mdl-js-layout">
+		  <header class="mdl-layout__header mdl-layout__header--waterfall">
+		    <!-- Top row, always visible -->
+		    <div class="mdl-layout__header-row">
+		      <!-- Title -->
+		      <span class="mdl-layout-title"><a class="title" href="index.html">Translation Network</a></span>
+		      <div class="mdl-layout-spacer"></div>
+		      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+		                  mdl-textfield--floating-label mdl-textfield--align-right">
+		        <label class="mdl-button mdl-js-button mdl-button--icon"
+		               for="waterfall-exp">
+		          <i class="material-icons">search</i>
+		        </label>
+		        <div class="mdl-textfield__expandable-holder">
+		          <input class="mdl-textfield__input" type="text" name="sample"
+		                 id="waterfall-exp">
+		        </div>
+		      </div>
+		    </div>
+		    <!-- Bottom row, not visible on scroll -->
+		    <div class="mdl-layout__header-row">
+		      <div class="mdl-layout-spacer"></div>
+		      <!-- Navigation -->
+		      <nav class="mdl-navigation">
+		        <a class="mdl-navigation__link" href="about.html">About</a>
+		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
+		        <div class="dropdown">
+		          <a onclick="event.preventDefault(); toggleDropdown()" class="mdl-navigation__link dropbtn" href="#">Contribute</a>
+				</div>
+		      </nav>
+		    </div>
+		  </header>
+		   <div id="myDropdown" class="dropdown-content">
+		    <a href="contribute_new.html">Original Text</a>
+		    <a href="contribute_translation.html">Translation</a>
+		  </div>
+		  <div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">Translation Network</span>
+			<nav class="mdl-navigation">
+		      <nav class="mdl-navigation">
+		        <a class="mdl-navigation__link" href="about.html">About</a>
+		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
+		        <a class="mdl-navigation__link" href="contribute_new.html">Contribute New</a>
+		        <a class="mdl-navigation__link" href="contribute_translation.html">Contribute Translation</a>
+			</nav>
+		  </div>
+				  <main class="mdl-layout__content">
+		  	<div class="search">
+		  		<form id="topform" action="#">
+		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<div class="ui-widget">
+    					<input class="mdl-textfield__input" type="text" id="lang">
+    					<label class="mdl-textfield__label" for="lang">Search Language...</label>
+						</div>
+					</div>
+				</form>
+		  		<form action="#">
+		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<div class="ui-widget">
+							<input class="mdl-textfield__input" type="text" id="author">
+							<label class="mdl-textfield__label" for="author">Search Author...</label>
+						</div>
+					</div>
+				</form>
+		  		<form action="#">
+		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    					<input class="mdl-textfield__input" type="text" id="title">
+    					<label class="mdl-textfield__label" for="title">Search Title...</label>
+					</div>
+				</form>
+		  	</div>
+		  	<div class="maincontent">
+				<h1 id='contenttitle'>Contribute a Translation</h1>
+				<hr id='titleline'>
+				<div id='entries'>
+				<p>Enter into Translation Network by translating the texts here into other languages! Your translation will appear beside the original to form a chain of text, charting the movement of the same words through different languages. We accept - in fact, encourage - multiple translations of the same work into the same language.</p>
+				<form onsubmit="event.preventDefault(); submitEntry(event)">
+					<h2 class="submit_header">Submitter's information</h2>
+					<div class="mdl-textfield mdl-js-textfield">
+						<input class="mdl-textfield__input" type="text" id="name">
+						<label class="mdl-textfield__label" for="name">Name...</label>
+					</div>
+					<br>
+					<div class="mdl-textfield mdl-js-textfield">
+    					<input class="mdl-textfield__input" type="text" id="language">
+    					<label class="mdl-textfield__label" for="language">Language...</label>
+					</div>
+					<br>
+					<div class="mdl-textfield mdl-js-textfield">
+    					<input class="mdl-textfield__input" type="text" id="email">
+    					<label class="mdl-textfield__label" for="email">Email...</label>
+					</div>
+					<br>
+					<h2 class="submit_header">Submission</h2>
+					<div class="mdl-textfield mdl-js-textfield">
+						<!-- <label class="mdl-textfield__label" for="original_article">Select the original article: </label> -->
+    					<select class="mdl-textfield__input" id="original_article"></select>
+    					<!-- <input class="mdl-textfield__input" type="text" id="work_title">
+    					<label class="mdl-textfield__label" for="work_title">Title of source-text...</label> -->
+					</div>
+					<br>
+					<div class="mdl-textfield mdl-js-textfield">
+    					<input class="mdl-textfield__input" type="text" id="trans_title">
+    					<label class="mdl-textfield__label" for="trans_title">Title of translation...</label>
+					</div>					
+					<div class="mdl-textfield mdl-js-textfield">
+						<textarea class="mdl-textfield__input" type="text" rows= "10" id="content" ></textarea>
+						<label class="mdl-textfield__label" for="content">Content...</label>
+					</div>
+					<input id = "submit" class="mdl-button mdl-js-button" type="submit" value="Submit">
+				</form>
+				</div>
+		  	</div>
+		  </main>
+		</div>
+
+		<script>
+		$(document).ready(function () {
+			var listItems = '<option selected="selected" value="0">Select original text..</option>';
+
+			$.getJSON(baseurl + "/titles", function(data){
+
+				$.each(data, function(k, v) {
+					console.log(k + ": " + v);
+					listItems += "<option value='" + k + "'>" + v + "</option>";
+				});
+
+				$("#original_article").html(listItems);
+			});
+
+		});
+		
+		</script>
+
+	</body>
+</html>

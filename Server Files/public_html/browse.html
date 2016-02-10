@@ -1,0 +1,164 @@
+<html>
+	<head>
+		<meta charset="UTF-16">
+		<script src="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.min.js"></script>
+		<link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.5/material.indigo-pink.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="css/zebra_accordion.css" type="text/css">
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script type="text/javascript" src="js/zebra_accordion.js"></script>
+		<script src="js/browse.js"></script>
+		<script src="js/dropdown.js"></script>
+	<script>
+	$(document).ready(function(){
+		var baseurl = "http://api.translationnetwork.org";
+				
+		$.getJSON( baseurl + "/articles", function( data ) {
+			document.getElementById("contenttitle").innerHTML = "All Articles";
+			var appending = "";
+			for(var i = 0; i < data.length; i++){
+				if(data[i].is_translation == "0"){
+					appending += "<div class='entry' id='article_" + data[i].id + "' ><h2 class='entrytitle'>" + data[i].title + "</h2><p class='entryauthor'>Original work by " + data[i].author_name + "</p><hr class='entryline'><p>" + data[i].text +"</p>";
+				}
+				else{
+					var orginal_author = "";
+					var original_lang = "";
+					$.ajax({
+						url: baseurl + "/article/" + data[i].parent_id,
+						async:false,
+						dataType: 'json',
+						success: function(data){
+							original_author = data.author_name;
+							original_lang = data.language;
+
+							$.ajaxSetup({
+								async: true
+							});
+						}
+					});
+					appending += "<div class='entry'><h2 class='entrytitle'>" + data[i].title + "</h2><p class='entryauthor'>Translated into "+data[i].language+" by " + data[i].author_name + "</p><hr class='entryline'>" + data[i].text +"<p class='entryinfo'>From " + original_lang + " by " + original_author + "</p>";
+
+				}
+
+				console.log(data[i].translations);
+				if (data[i].translations.length != 0) {
+					appending += "<br><h4>Translations</h4><dl class='Zebra_Accordion'></dl>";
+					appending += "</div>";
+
+					$.each(data[i].translations, function(key, value){
+						$.getJSON(baseurl + "/article/" + value, function(data){
+							console.log(data);
+
+							var tempHtml = "";
+							if (data.status != "false") {
+								tempHtml += "<dt>" + data.title + " (By " + data.author_name + " in " + data.language + " language)</dt>";
+								tempHtml += "<dd>" + data.text + "</dd>";
+
+								$("#article_" + data.parent_id + " .Zebra_Accordion").append(tempHtml);
+
+								var myAccordion = new $.Zebra_Accordion("#article_" + data.parent_id + " .Zebra_Accordion", {
+							        'collapsible':  true
+							    });
+
+							    $("dt.Zebra_Accordion_Expanded").click();
+							}
+						});
+					});
+				}else{
+					appending += "</div>";
+				}
+			}
+			document.getElementById("entries").innerHTML = appending;
+
+			
+		});
+	});
+		
+		
+	</script>
+	</head>
+	<body>
+		<div class="demo-layout-waterfall mdl-layout mdl-js-layout">
+		  <header class="mdl-layout__header mdl-layout__header--waterfall">
+		    <!-- Top row, always visible -->
+		    <div class="mdl-layout__header-row">
+		      <!-- Title -->
+		      <span class="mdl-layout-title"><a class="title" href="index.html">Translation Network</a></span>
+		      <div class="mdl-layout-spacer"></div>
+		      <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable
+		                  mdl-textfield--floating-label mdl-textfield--align-right">
+		        <label class="mdl-button mdl-js-button mdl-button--icon"
+		               for="waterfall-exp">
+		          <i class="material-icons">search</i>
+		        </label>
+		        <div class="mdl-textfield__expandable-holder">
+		          <input class="mdl-textfield__input" type="text" name="sample"
+		                 id="waterfall-exp">
+		        </div>
+		      </div>
+		    </div>
+		    <!-- Bottom row, not visible on scroll -->
+		    <div class="mdl-layout__header-row">
+		    <div class="mdl-layout-spacer"></div>
+		      <!-- Navigation -->
+		    <nav class="mdl-navigation">
+		        <a class="mdl-navigation__link" href="about.html">About</a>
+		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
+		        <div class="dropdown">
+		          <a onclick="event.preventDefault(); toggleDropdown()" class="mdl-navigation__link dropbtn" href="#">Contribute</a>
+				</div>
+			</nav>
+		    </div>
+		  </header>
+		   <div id="myDropdown" class="dropdown-content">
+		    <a href="contribute_new.html">Original Text</a>
+		    <a href="contribute_translation.html">Translation</a>
+		  </div>
+		  <div class="mdl-layout__drawer">
+			<span class="mdl-layout-title">The Translation Network</span>
+			<nav class="mdl-navigation">
+		      <nav class="mdl-navigation">
+		        <a class="mdl-navigation__link" href="about.html">About</a>
+		        <a class="mdl-navigation__link" href="browse.html">Browse</a>
+		        <a class="mdl-navigation__link" href="contribute_new.html">Contribute New</a>
+		        <a class="mdl-navigation__link" href="contribute_translation.html">Contribute Translation</a>
+			</nav>
+		  </div>
+		  <main class="mdl-layout__content">
+		  	<div class="search">
+		  		<form id="topform" action="#">
+		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<div class="ui-widget">
+    					<input class="mdl-textfield__input" type="text" id="lang">
+    					<label class="mdl-textfield__label" for="lang">Search Language...</label>
+						</div>
+					</div>
+				</form>
+		  		<form action="#">
+		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+						<div class="ui-widget">
+							<input class="mdl-textfield__input" type="text" id="author">
+							<label class="mdl-textfield__label" for="author">Search Author...</label>
+						</div>
+					</div>
+				</form>
+		  		<form action="#">
+		  			<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+    					<input class="mdl-textfield__input" type="text" id="title">
+    					<label class="mdl-textfield__label" for="title">Search Title...</label>
+					</div>
+				</form>
+		  	</div>
+		  	<div class="maincontent">
+				<h1 id='contenttitle'></h1>
+				<hr id='titleline'>
+				<div id='entries'></div>
+		  	</div>
+		  </main>
+		</div>
+
+	</body>
+</html>
